@@ -3,12 +3,12 @@ const products = [
   {
     id: 1,
     name: 'Product 1',
-    price: 25.99,
+    price:120.00,
   },
   {
     id: 2,
     name: 'Product 2',
-    price: 19.99,
+    price: 170.00,
   },
 ];
 
@@ -30,39 +30,58 @@ function displayProducts() {
 
 // Function to simulate GCash payment
 function payWithGCash(productID) {
-  // Simulate payment process
-  setTimeout(() => {
-    alert(`Payment for Product ${productID} successful via GCash!`);
-  }, 2000);
+  return new Promise((resolve, reject) => {
+    // Simulate payment process
+    setTimeout(() => {
+      const success = Math.random() < 0.9; // 90% success rate
+      if (success) {
+        resolve(`Payment for Product ${productID} successful via GCash!`);
+      } else {
+        reject(new Error(`Payment for Product ${productID} failed via GCash.`));
+      }
+    }, 2000);
+  });
 }
 
 // Function to simulate PayPal payment
 function payWithPayPal(productID) {
-  // Simulate payment process
-  setTimeout(() => {
-    alert(`Payment for Product ${productID} successful via PayPal!`);
-  }, 2000);
+  return new Promise((resolve, reject) => {
+    // Simulate payment process
+    setTimeout(() => {
+      const success = Math.random() < 0.95; // 95% success rate
+      if (success) {
+        resolve(`Payment for Product ${productID} successful via PayPal!`);
+      } else {
+        reject(new Error(`Payment for Product ${productID} failed via PayPal.`));
+      }
+    }, 2000);
+  });
 }
 
 // Function to handle the payment based on the selected method
-function buyProduct(productID) {
+async function buyProduct(productID) {
   const paymentMethod = prompt(
     'Choose a payment method: GCash or PayPal',
     'GCash'
   ).toLowerCase();
 
-  switch (paymentMethod) {
-    case 'gcash':
-      payWithGCash(productID);
-      break;
-    case 'paypal':
-      payWithPayPal(productID);
-      break;
-    default:
-      alert('Invalid payment method. Please choose GCash or PayPal.');
+  try {
+    switch (paymentMethod) {
+      case 'gcash':
+        const gcashMessage = await payWithGCash(productID);
+        alert(gcashMessage);
+        break;
+      case 'paypal':
+        const paypalMessage = await payWithPayPal(productID);
+        alert(paypalMessage);
+        break;
+      default:
+        throw new Error('Invalid payment method. Please choose GCash or PayPal.');
+    }
+  } catch (error) {
+    alert(error.message);
   }
 }
 
 // Call the displayProducts function to show products on the page
 displayProducts();
-                   
