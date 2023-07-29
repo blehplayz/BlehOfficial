@@ -13,6 +13,9 @@ header {
 }
 
 main {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
   padding: 1rem;
 }
 
@@ -152,4 +155,160 @@ main {
   background-color: #0056b3;
 }
 
-/* ... (other CSS styles) ... */
+/* Payment Method Selection Styles */
+#payment-selection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 2;
+  transform: translateY(-100%);
+  transition: transform 0.3s ease;
+}
+
+#payment-selection.visible {
+  transform: translateY(0);
+}
+
+#payment-selection h2 {
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+#payment-selection button {
+  background-color: #fff;
+  color: #007bff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 3px;
+  transition: background-color 0.3s ease;
+  margin-bottom: 1rem;
+}
+
+#payment-selection button.gcash-button {
+  background-color: #00ab54;
+  color: #fff;
+}
+
+#payment-selection button.paypal-button {
+  background-color: #003087;
+  color: #fff;
+}
+
+#payment-selection button.go-back-button {
+  background-color: #999;
+  color: #fff;
+}
+
+#payment-selection button:hover {
+  background-color: #f2f2f2;
+  color: #007bff;
+}
+
+/* Thank You Message Styles */
+#thank-you {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 2;
+  transform: translateY(-100%);
+  transition: transform 0.3s ease;
+}
+
+#thank-you.visible {
+  transform: translateY(0);
+}
+
+#thank-you h2 {
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+#thank-you p {
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+#thank-you button {
+  background-color: #fff;
+  color: #007bff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 3px;
+  transition: background-color 0.3s ease;
+}
+
+#thank-you button:hover {
+  background-color: #f2f2f2;
+  color: #007bff;
+}
+
+/* Comment Section Styles */
+.comment-section {
+  margin-top: 1rem;
+}
+
+.comment-section h3 {
+  margin-bottom: 1rem;
+}
+
+.comment-section form {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.comment-section input,
+.comment-section textarea {
+  padding: 5px;
+  margin-bottom: 0.5rem;
+  border: 1px solid #ccc;
+}
+
+.comment-section textarea {
+  resize: vertical;
+}
+
+.comment-section button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 8px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 3px;
+  transition: background-color 0.3s ease;
+}
+
+.comment-section button:hover {
+  background-color: #0056b3;
+}
+
+#comments {
+  margin-top: 1rem;
+}
+
+#comments div {
+  margin-bottom: 0.5rem;
+  padding: 5px;
+  border: 1px solid #ccc;
+  background-color: #f2f2f2;
+  }
+                            
