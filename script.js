@@ -1,31 +1,60 @@
-// Function to handle product purchase
-function buyProduct(productName) {
-  const product = products.find((p) => p.name === productName);
-  if (product) {
-    // Display the payment method selection
-    document.getElementById('payment-selection').classList.remove('hidden');
-  }
+// ... (previous code) ...
+
+// Function to show the checkout section
+function showCheckout() {
+  const checkoutSection = document.getElementById('checkout');
+  checkoutSection.classList.add('visible');
 }
 
-// Function to handle redirecting to payment method or cart
+// Function to hide the checkout section
+function hideCheckout() {
+  const checkoutSection = document.getElementById('checkout');
+  checkoutSection.classList.remove('visible');
+}
+
+// Function to show the payment method selection
 function redirectToPayment(paymentMethod) {
   if (paymentMethod === 'Cart') {
-    // Show cart
     showCart();
-  } else {
-    // Process payment (placeholder)
-    const thankYouSection = document.getElementById('thank-you');
-    thankYouSection.classList.remove('hidden');
+  } else if (paymentMethod === 'GCash' || paymentMethod === 'PayPal') {
     hideCart();
+    showCheckout();
   }
 }
 
-// Function to go back to product selection
-function goBackToProducts() {
-  document.getElementById('payment-selection').classList.add('hidden');
-  document.getElementById('thank-you').classList.add('hidden');
-  hideCart();
+// Function to handle the checkout form submission
+function handleCheckoutFormSubmission(event) {
+  event.preventDefault();
+  const name = document.getElementById('name').value;
+  const email = document.getElementById('email').value;
+  const address = document.getElementById('address').value;
+
+  // You can add further processing for the checkout information here
+  // For this example, we'll just show the thank you message and clear the cart
+  showThankYouMessage();
+  clearCart();
+  hideCheckout();
 }
 
-// Initialize product rendering
-renderProducts();
+// Function to show the thank you message
+function showThankYouMessage() {
+  const thankYouSection = document.getElementById('thank-you');
+  thankYouSection.classList.add('visible');
+}
+
+// Function to go back to the cart from the checkout section
+function goBackToCart() {
+  hideCheckout();
+  showCart();
+}
+
+// Function to clear the cart
+function clearCart() {
+  cart.length = 0;
+  updateCart();
+}
+
+// Attach form submission event handler
+document.getElementById('checkout-form').addEventListener('submit', handleCheckoutFormSubmission);
+
+// ... (previous code) ...
