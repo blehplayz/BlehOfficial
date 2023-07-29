@@ -1,63 +1,68 @@
-// Dummy product data
-const products = [
-  {
-    id: 1,
-    name: 'Product 1',
-    price: 25.99,
-  },
-  {
-    id: 2,
-    name: 'Product 2',
-    price: 19.99,
-  },
-];
+// ... (previous JavaScript code) ...
 
-// Function to display products on the page
-function displayProducts() {
-  const productContainer = document.querySelector('main');
-  productContainer.innerHTML = '';
+// Function to show product details when clicked
+function showProductDetails(productName) {
+  const product = products.find((p) => p.name === productName);
+  if (product) {
+    const modal = document.getElementById('product-details-modal');
+    const modalContent = document.querySelector('.modal-content');
+    const productImages = document.getElementById('product-images');
+    const productDetailsName = document.getElementById('product-details-name');
+    const productDetailsDescription = document.getElementById('product-details-description');
+    const commentSection = document.getElementById('comments');
+    const commentForm = document.getElementById('comment-form');
 
-  products.forEach((product) => {
-    const productDiv = document.createElement('div');
-    productDiv.className = 'product';
-    productDiv.innerHTML = `
-      <h2>${product.name}</h2>
-      <p>Description of ${product.name}.</p>
-      <p>Price: $${product.price.toFixed(2)}</p>
-      <button onclick="buyProduct('${product.name}')">Buy Now</button>
-    `;
-    productContainer.appendChild(productDiv);
-  });
-}
+    // Clear previous content
+    productImages.innerHTML = '';
+    commentSection.innerHTML = '';
 
-// Function to handle the redirection to payment selection page
-function redirectToPayment(productName) {
-  const paymentMethod = prompt(
-    `Choose a payment method for ${productName}: GCash or PayPal`,
-    'GCash'
-  ).toLowerCase();
+    // Populate modal with product details and images
+    productDetailsName.textContent = product.name;
+    productDetailsDescription.textContent = product.description;
+    product.images.forEach((image) => {
+      const img = document.createElement('img');
+      img.src = image;
+      productImages.appendChild(img);
+    });
 
-  switch (paymentMethod) {
-    case 'gcash':
-      // Redirect to GCash payment selection page (replace with actual URL)
-      window.location.href = 'https://example.com/gcash-payment-page';
-      break;
-    case 'paypal':
-      // Redirect to PayPal payment selection page (replace with actual URL)
-      window.location.href = 'https://example.com/paypal-payment-page';
-      break;
-    default:
-      alert('Invalid payment method. Please choose GCash or PayPal.');
+    // Populate comments
+    if (product.comments.length > 0) {
+      product.comments.forEach((comment) => {
+        const commentDiv = document.createElement('div');
+        commentDiv.innerHTML = `<strong>${comment.name}</strong>: ${comment.text}`;
+        commentSection.appendChild(commentDiv);
+      });
+    } else {
+      const noCommentsDiv = document.createElement('div');
+      noCommentsDiv.textContent = 'No comments yet.';
+      commentSection.appendChild(noCommentsDiv);
+    }
+
+    // Show modal
+    modal.classList.remove('hidden');
+    modalContent.classList.add('fade-in');
+    document.body.style.overflow = 'hidden';
+
+    // Handle comment submission
+    commentForm.onsubmit = function (e) {
+      e.preventDefault();
+      const name = document.getElementById('comment-name').value;
+      const text = document.getElementById('comment-text').value;
+      if (name.trim() !== '' && text.trim() !== '') {
+        product.comments.push({ name, text });
+        showProductDetails(product.name);
+      }
+    };
   }
 }
 
-// Function to handle the payment based on the selected method
-async function buyProduct(productName) {
-  const confirmed = confirm(`Do you want to buy ${productName}?`);
-  if (confirmed) {
-    await redirectToPayment(productName);
-  }
+// Function to close product details modal
+function closeProductDetails() {
+  const modal = document.getElementById('product-details-modal');
+  const modalContent = document.querySelector('.modal-content');
+  modalContent.classList.remove('fade-in');
+  modal.classList.add('hidden');
+  document.body.style.overflow = 'auto';
 }
 
-// Call the displayProducts function to show products on the page
-displayProducts();
+// ... (remaining JavaScript code) ...
