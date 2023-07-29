@@ -12,20 +12,54 @@
     </header>
     <main>
         <!-- Product 1 Section -->
-        <section class="product">
+        <section class="product" onclick="showProductDetails('Product 1')">
             <h2>Product 1</h2>
-            <p>Description of Product 1.</p>
-            <p>Price: $XX.XX</p>
+            <p>Description of Product 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eu purus ac arcu hendrerit tempor.</p>
+            <p>Price: $25.99</p>
             <button onclick="buyProduct('Product 1')">Buy Now</button>
         </section>
 
         <!-- Product 2 Section -->
-        <section class="product">
+        <section class="product" onclick="showProductDetails('Product 2')">
             <h2>Product 2</h2>
-            <p>Description of Product 2.</p>
-            <p>Price: $XX.XX</p>
+            <p>Description of Product 2. Aliquam scelerisque, ex vel tempor sagittis, dolor sem sagittis metus.</p>
+            <p>Price: $19.99</p>
             <button onclick="buyProduct('Product 2')">Buy Now</button>
         </section>
+
+        <!-- Payment Method Selection -->
+        <div id="payment-selection" class="hidden">
+            <h2>Choose Payment Method</h2>
+            <button class="gcash-button" onclick="redirectToPayment('GCash')">GCash</button>
+            <button class="paypal-button" onclick="redirectToPayment('PayPal')">PayPal</button>
+            <button class="go-back-button" onclick="goBackToProducts()">Go Back</button>
+        </div>
+
+        <!-- Thank You Message -->
+        <div id="thank-you" class="hidden">
+            <h2>Thank You for Your Purchase!</h2>
+            <p>Your order has been placed successfully.</p>
+            <button class="continue-shopping-button" onclick="goBackToProducts()">Continue Shopping</button>
+        </div>
+
+        <!-- Product Details Modal -->
+        <div id="product-details-modal" class="modal hidden">
+            <div class="modal-content">
+                <span class="close" onclick="closeProductDetails()">&times;</span>
+                <h2 id="product-details-name"></h2>
+                <div class="product-images" id="product-images"></div>
+                <p id="product-details-description"></p>
+                <div class="comment-section">
+                    <h3>Comments</h3>
+                    <form id="comment-form">
+                        <input type="text" id="comment-name" placeholder="Your Name" required>
+                        <textarea id="comment-text" placeholder="Leave a comment..." required></textarea>
+                        <button type="submit">Post Comment</button>
+                    </form>
+                    <div id="comments"></div>
+                </div>
+            </div>
+        </div>
     </main>
     <script src="script.js"></script>
 </body>
